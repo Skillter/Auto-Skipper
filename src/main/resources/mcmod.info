@@ -5,7 +5,7 @@
   "description": "Skips a round if there is a player with good stats in the lobby.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/Skillter",
   "updateUrl": "",
   "authorList": ["Skillter"],
   "credits": "Mod coded by Skillter",
