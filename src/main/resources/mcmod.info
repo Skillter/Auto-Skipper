@@ -1,0 +1,16 @@
+[
+{
+  "modid": "autoskipper",
+  "name": "Auto Skipper",
+  "description": "Skips a round if there is a player with good stats in the lobby.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Skillter"],
+  "credits": "Mod coded by Skillter",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

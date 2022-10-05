@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "https://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+minecraft {
+    version = "1.8.9-11.15.1.2318-1.8.9"
+    runDir = "run"
+    mappings = "stable_20"
+}
+
+sourceCompatibility = targetCompatibility = "1.8"
+
+def modName = "AutoSkipper"
+def modVersion = "1.0"
+archivesBaseName = "${modName}-${project.minecraft.version}-${modVersion}"
+group = "skillter.autoskipper"
+
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61'
+// Slothpixel-JVM requires Kotlin sdk
+    compile 'com.github.mew:Slothpixel-JVM:master-SNAPSHOT'
+
+
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version':modVersion, 'mcversion':project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+jar.manifest.attributes(
+        'Main-Class': 'skillter.autoskipper.AntiJarLaunch'
+)
