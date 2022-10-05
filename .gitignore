@@ -6,23 +6,17 @@ bin
 .classpath
 .project
 
-# intellij
-.idea
+# idea
 out
 *.ipr
 *.iws
 *.iml
+.idea
 
 # gradle
 build
 .gradle
-.gradletasknamecache
-!gradle-wrapper.jar
-gradle-app.setting
 
 # other
-gradlew *.bat
-# personal shortcut bat files
 eclipse
 run
-build
