@@ -33,7 +33,9 @@ dependencies {
 
     compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61'
 // Slothpixel-JVM requires Kotlin sdk
-    compile 'com.github.mew:Slothpixel-JVM:master-SNAPSHOT'
+    implementation 'com.github.mew:Slothpixel-JVM:master-SNAPSHOT'
+    implementation 'mysql:mysql-connector-java:5.1.49'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.39.3.0'
 
 
 }
