@@ -55,13 +55,18 @@ public class Database {
         if (ConfigHandler.databaseReachable && connection != null) {
             Gson gson = new Gson();
             String skywars = gson.toJson(new SkywarsTable("testUUID", "testPlayernickname", 2.1f, 13.0f));
-            for (int i=0; i<1; i++) {
-                String tableName = skywars;
-                String statement = "CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
-                        + "	id integer PRIMARY KEY,\n"
-                        + "	name text NOT NULL,\n"
-                        + "	capacity real\n"
-                        + ");";
+            try {
+                Statement statement = connection.createStatement();
+                String tableName = "Skywars";
+                statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
+                        + "	uuid TEXT,\n"
+                        + "	nick TEXT,\n"
+                        + "	kd DECIMAL\n"
+                        + "	level DECIMAL\n"
+                        + ");");
+                statement.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
         }
     }
@@ -100,10 +105,10 @@ public class Database {
             }
 
             if (table == 1) {
-                statement.executeUpdate("UPDATE " + ConfigHandler.prefix + "container SET rolled_back='" + rolledBack + "' WHERE rowid='" + id + "'");
+                statement.executeUpdate("UPDATE container SET rolled_back='" + rolledBack + "' WHERE rowid='" + id + "'");
             }
             else {
-                statement.executeUpdate("UPDATE " + ConfigHandler.prefix + "block SET rolled_back='" + rolledBack + "' WHERE rowid='" + id + "'");
+                statement.executeUpdate("UPDATE block SET rolled_back='" + rolledBack + "' WHERE rowid='" + id + "'");
             }
         }
         catch (Exception e) {
