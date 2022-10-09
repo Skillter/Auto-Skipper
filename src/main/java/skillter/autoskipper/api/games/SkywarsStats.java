@@ -7,9 +7,9 @@ public class SkywarsStats {
 
 
     public static HashMap<UUID, Float> getPlayersKD() {
-
+        return null;
     }
     public static HashMap<UUID, Float> getPlayersLevel() {
-
+        return null;
     }
 }

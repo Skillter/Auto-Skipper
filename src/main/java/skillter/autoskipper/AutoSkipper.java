@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import skillter.autoskipper.config.Config;
+import skillter.autoskipper.database.Database;
 
 @Mod(clientSideOnly = true, modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_MINECRAFT_VERSIONS)
 public class AutoSkipper {
@@ -21,8 +22,10 @@ public class AutoSkipper {
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent e) {
-
+    public void init(FMLInitializationEvent e) throws ClassNotFoundException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Database.getConnection();
+        Database.createTables();
     }
 
 
