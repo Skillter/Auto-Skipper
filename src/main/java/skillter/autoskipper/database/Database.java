@@ -17,17 +17,19 @@ public class Database {
 
     public static String databasePath = "jdbc:sqlite:" + new File(Loader.instance().getConfigDir(), "data.db").getAbsolutePath();
 
-    public static Connection connection = null;
-
+    static private Connection connection = null;
     // Connecting to a database automatically creates it if it doesn't already exist
     public static Connection getConnection() {
         try {
-            connection = DriverManager.getConnection(databasePath);
-            if (connection != null) {
-                DatabaseMetaData meta = connection.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                ConfigHandler.databaseReachable = true;
-                return connection;
+            if (connection != null && connection.isClosed() == false) return connection;
+            else {
+                connection = DriverManager.getConnection(databasePath);
+                if (connection != null) {
+                    DatabaseMetaData meta = connection.getMetaData();
+                    System.out.println("The driver name is " + meta.getDriverName());
+                    ConfigHandler.databaseReachable = true;
+                    return connection;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,25 +51,25 @@ public class Database {
     }
 
     public static void createTables() {
-        if (ConfigHandler.databaseReachable == false || connection == null) {
-            getConnection();
-        }
-        if (ConfigHandler.databaseReachable && connection != null) {
-            Gson gson = new Gson();
-            String skywars = gson.toJson(new SkywarsTable("testUUID", "testPlayernickname", 2.1f, 13.0f));
-            try {
-                Statement statement = connection.createStatement();
-                String tableName = "Skywars";
-                statement.executeUpdate("CREATE TABLE IF NOT EXISTS " + tableName + " (\n"
-                        + "	uuid TEXT,\n"
-                        + "	nick TEXT,\n"
-                        + "	kd DECIMAL\n"
-                        + "	level DECIMAL\n"
-                        + ");");
-                statement.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+        try (Connection connection = getConnection()){
+            if (connection != null) {
+                // Gson gson = new Gson();
+                // String skywars = gson.toJson(new SkywarsTable("testUUID", "testPlayernickname", 2.1f, 13.0f));
+                try {
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate("CREATE TABLE IF NOT EXISTS Skywars (\n"
+                            + "	uuid TEXT,\n"
+                            + "	nick TEXT,\n"
+                            + "	kd DECIMAL,\n"
+                            + "	level DECIMAL\n"
+                            + ");");
+                    statement.close();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 

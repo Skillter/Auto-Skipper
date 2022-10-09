@@ -7,6 +7,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import skillter.autoskipper.config.Config;
 import skillter.autoskipper.database.Database;
+import skillter.autoskipper.database.tables.SkywarsTable;
+
+import javax.xml.crypto.Data;
 
 @Mod(clientSideOnly = true, modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_MINECRAFT_VERSIONS)
 public class AutoSkipper {
@@ -23,9 +26,14 @@ public class AutoSkipper {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent e) throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver"); // Calling the Driver for database so it loads
+        Class.forName("org.sqlite.JDBC");
         Database.getConnection();
         Database.createTables();
+        //SkywarsTable.insert("this is a UUID", "Mateusz1xm", 1.5f, 160.3f);
+        SkywarsTable.Player skywarsPlayer = SkywarsTable.get("this is a UUID");
+        System.out.println("test" + skywarsPlayer.toString());
+
     }
 
 
