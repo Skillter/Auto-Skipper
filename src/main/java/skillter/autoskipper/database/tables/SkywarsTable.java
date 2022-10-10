@@ -2,10 +2,7 @@ package skillter.autoskipper.database.tables;
 
 import skillter.autoskipper.database.Database;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class SkywarsTable {
 
@@ -20,10 +17,14 @@ public class SkywarsTable {
     }
 
     public static Player get(String uuid) {
+        String sqlQuery = "SELECT * FROM Skywars WHERE uuid = ?";
+        ResultSet rs = null;
         try(Connection connection = Database.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT uuid, nick, kd, level FROM Skywars");
-        ) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);)
+        {
+            if (preparedStatement == null) return null;
+            preparedStatement.setString(1, uuid);
+            rs = preparedStatement.executeQuery();
             while(rs.next()){
                 Player player = new Player(
                         rs.getString("uuid"),
@@ -35,6 +36,8 @@ public class SkywarsTable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try { rs.close(); } catch (SQLException ex) { ex.printStackTrace(); }
         }
         return null;
     }
