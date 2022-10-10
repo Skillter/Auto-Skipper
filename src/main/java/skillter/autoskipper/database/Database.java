@@ -1,5 +1,6 @@
 package skillter.autoskipper.database;
 import com.google.gson.Gson;
+import com.mysql.jdbc.exceptions.MySQLDataException;
 import net.minecraftforge.fml.common.Loader;
 import skillter.autoskipper.Reference;
 import skillter.autoskipper.config.ConfigHandler;
@@ -21,6 +22,8 @@ public class Database {
     // Connecting to a database automatically creates it if it doesn't already exist
     public static Connection getConnection() {
         try {
+            Class.forName("com.mysql.jdbc.Driver"); // Calling the Driver for database so it loads
+            Class.forName("org.sqlite.JDBC");
             if (connection != null && connection.isClosed() == false) return connection;
             else {
                 connection = DriverManager.getConnection(databasePath);
@@ -31,8 +34,8 @@ public class Database {
                     return connection;
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException | ClassNotFoundException ex) {
+            ex.printStackTrace();
         }
         return null;
     }

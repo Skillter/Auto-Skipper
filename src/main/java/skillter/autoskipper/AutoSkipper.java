@@ -26,12 +26,9 @@ public class AutoSkipper {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent e) throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver"); // Calling the Driver for database so it loads
-        Class.forName("org.sqlite.JDBC");
-        Database.getConnection();
         Database.createTables();
-        //SkywarsTable.insert("this is a UUID", "Mateusz1xm", 1.5f, 160.3f);
-        SkywarsTable.Player skywarsPlayer = SkywarsTable.get("this is a UUID");
+        SkywarsTable.insert("AAAAAathis is a UUID", "Mateusz2xm", 1.5f, 160.3f);
+        SkywarsTable.Player skywarsPlayer = SkywarsTable.get("AAAAAathis is a UUID");
         System.out.println("test" + skywarsPlayer.toString());
 
     }
