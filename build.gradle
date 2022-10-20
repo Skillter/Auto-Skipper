@@ -37,7 +37,7 @@ dependencies {
 // Slothpixel-JVM requires Kotlin sdk
     implementation 'com.github.mew:Slothpixel-JVM:master-SNAPSHOT'
     implementation 'net.hypixel:hypixel-api-transport-apache:4.2.1'
-    implementation 'mysql:mysql-connector-java:5.1.49'
+    implementation 'mysql:mysql-connector-java:8.0.30'
     implementation 'org.xerial:sqlite-jdbc:3.39.3.0'
 
 
