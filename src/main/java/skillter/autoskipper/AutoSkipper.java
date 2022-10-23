@@ -5,11 +5,15 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import skillter.autoskipper.api.hypixel.SkywarsStats;
 import skillter.autoskipper.config.Config;
 import skillter.autoskipper.database.Database;
 import skillter.autoskipper.database.tables.SkywarsTable;
 
-import javax.xml.crypto.Data;
+
+import java.util.ArrayList;
+import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @Mod(clientSideOnly = true, modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_MINECRAFT_VERSIONS)
 public class AutoSkipper {
@@ -25,11 +29,15 @@ public class AutoSkipper {
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent e) throws ClassNotFoundException {
+    public void init(FMLInitializationEvent e) throws InterruptedException, ExecutionException {
         Database.createTables();
         SkywarsTable.insert("AAAAAathis is a UUID", "Mateusz2xm", 1.5f, 160.3f);
         SkywarsTable.Player skywarsPlayer = SkywarsTable.get("AAAAAathis is a UUID");
         System.out.println("test" + skywarsPlayer.toString());
+
+        ArrayList<UUID> uuid = new ArrayList<>();
+        uuid.add(UUID.fromString("12146e22-c10a-4219-8103-15502dc80243"));
+        System.out.println("the player's kd is " + SkywarsStats.getPlayersKD(uuid).complete().toString());
 
     }
 
