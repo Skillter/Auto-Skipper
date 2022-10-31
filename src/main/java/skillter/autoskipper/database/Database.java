@@ -1,18 +1,10 @@
 package skillter.autoskipper.database;
-import com.google.gson.Gson;
-import com.mysql.jdbc.exceptions.MySQLDataException;
+
 import net.minecraftforge.fml.common.Loader;
-import skillter.autoskipper.Reference;
 import skillter.autoskipper.config.ConfigHandler;
-import skillter.autoskipper.database.tables.SkywarsTable;
 
 import java.io.File;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.function.Consumer;
 
 public class Database {
 
