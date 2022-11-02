@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class HypixelSkywarsStats {
 
@@ -22,16 +23,23 @@ public class HypixelSkywarsStats {
 
     }
 
-    public static ArrayList<Integer> getPlayersLevel(ArrayList<UUID> uuid) throws ExecutionException, InterruptedException {
-        ArrayList<Integer> playerLevel = new ArrayList<Integer>();
-        HypixelAPI.api.getPlayerByUuid(uuid.get(0)).exceptionally(throwable -> {
-            throwable.printStackTrace();
-            return null;
-        }).thenAccept(x -> {
-            JsonObject skywars = x.getPlayer().getObjectProperty("stats").getAsJsonObject("SkyWars");
-            playerLevel.add(skywars.get("skywars_experience").getAsInt());
-        }).get();
+    public static HashMap<UUID, Integer> getPlayersLevel(ArrayList<UUID> uuid) throws ExecutionException, InterruptedException {
+        HashMap<UUID, Integer> playerLevel = new HashMap<UUID, Integer>();
+        AtomicInteger counter = new AtomicInteger();
+        uuid.forEach(playerUUID -> {
+            try {
+                HypixelAPI.api.getPlayerByUuid(playerUUID).exceptionally(throwable -> {
+                    throwable.printStackTrace();
+                    return null;
+                }).thenAccept(x -> {
+                    JsonObject skywars = x.getPlayer().getObjectProperty("stats").getAsJsonObject("SkyWars");
+                    playerLevel.put(uuid.get(counter.get()), skywars.get("skywars_experience").getAsInt());
+                }).get();
+            } catch (InterruptedException | ExecutionException ex) {
+                ex.printStackTrace();
+            }
+            counter.getAndIncrement();
+        });
         return playerLevel;
-
     }
 }

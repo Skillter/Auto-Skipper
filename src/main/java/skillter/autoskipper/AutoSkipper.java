@@ -27,21 +27,23 @@ public class AutoSkipper {
     public static AutoSkipper instance;
 
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent e) {
+    public void preInit(FMLPreInitializationEvent e) throws ExecutionException, InterruptedException {
         configInit();
-    }
-
-    @Mod.EventHandler
-    public void init(FMLInitializationEvent e) throws InterruptedException, ExecutionException, MalformedURLException {
         Database.createTables();
-        //SkywarsTable.insert("AAAAAathis is a UUID", "Mateusz2xm", 1.5f, 160.3f);
-        //SkywarsTable.Player skywarsPlayer = SkywarsTable.get("AAAAAathis is a UUID");
 
         ArrayList<UUID> uuid = new ArrayList<>();
         uuid.add(UUID.fromString("12146e22-c10a-4219-8103-15502dc80243"));
-        uuid.add(UUID.fromString("12146e22-c10a-4219-8103-15502dc80243"));
+        uuid.add(UUID.fromString("456bbc85-2dc8-44df-a741-850ea9ecc004"));
         //System.out.println("the player's kd is " + HypixelSkywarsStats.getPlayersLevel(uuid).toString());
-        System.out.println("uwu " + SlothpixelSkywarsStats.getPlayersKD(uuid));
+        System.out.println("uwu " + SlothpixelSkywarsStats.getPlayersLevel(uuid));
+    }
+
+    @Mod.EventHandler
+    public void init(FMLInitializationEvent e) {
+        //SkywarsTable.insert("AAAAAathis is a UUID", "Mateusz2xm", 1.5f, 160.3f);
+        //SkywarsTable.Player skywarsPlayer = SkywarsTable.get("AAAAAathis is a UUID");
+
+
 
     }
 
