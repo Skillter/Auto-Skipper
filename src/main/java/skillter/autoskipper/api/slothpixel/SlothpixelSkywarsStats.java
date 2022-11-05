@@ -39,8 +39,8 @@ public class SlothpixelSkywarsStats {
             if (i < uuid.size()-1) uuids.append(",");
         }
         String uuidsString = uuids.toString().replaceAll("-", ""); // Slothpixel docs explain the uuid should not contain dashes
-        String response = HttpRequest.get(SlothpixelAPI.API_URL + "players/" + uuids.toString()).accept("application/json").body();
-        
+        String response = HttpRequest.get(SlothpixelAPI.API_URL + "players/" + uuidsString).accept("application/json").body();
+
         AtomicInteger counter = new AtomicInteger();
         JsonParser.parseString(response).getAsJsonArray().forEach((player) -> {
             int experience = player.getAsJsonObject().getAsJsonObject("stats").getAsJsonObject("SkyWars").get("experience").getAsInt();
