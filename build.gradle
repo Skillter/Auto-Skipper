@@ -33,7 +33,7 @@ repositories {
 
 dependencies {
 
-    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20'
+    //compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20' // Causes a lot of exceptions
 // Slothpixel-JVM requires Kotlin sdk
     implementation 'com.github.mew:Slothpixel-JVM:master-SNAPSHOT'
     implementation 'net.hypixel:hypixel-api-transport-apache:4.2.1'
