@@ -35,7 +35,7 @@ public class AutoSkipper {
         uuid.add(UUID.fromString("12146e22-c10a-4219-8103-15502dc80243"));
         uuid.add(UUID.fromString("456bbc85-2dc8-44df-a741-850ea9ecc004"));
         //System.out.println("the player's kd is " + HypixelSkywarsStats.getPlayersLevel(uuid).toString());
-        System.out.println("uwu " + SlothpixelSkywarsStats.getPlayersLevel(uuid));
+        // System.out.println("uwu " + SlothpixelSkywarsStats.getPlayersLevel(uuid)); // THIS CRASHES!!! Not yet implemented correctly
     }
 
     @Mod.EventHandler
